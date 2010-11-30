@@ -29,7 +29,8 @@ public class UrlGerenciada implements Comparable<UrlGerenciada> {
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof UrlGerenciada){
-			return ((UrlGerenciada)obj).getChave().equals(this.chave);
+			if ( ((UrlGerenciada)obj).getChave() != null)
+				return ((UrlGerenciada)obj).getChave().equals(this.chave);
 		}
 		return super.equals(obj);
 	}
