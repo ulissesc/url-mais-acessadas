@@ -23,14 +23,15 @@ public class UrlGerenciada implements Comparable<UrlGerenciada> {
 		acessos++;
 	}
 	public void resetaAcessos(){
-		acessos++;
+		acessos = 0;
 	}
 	
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof UrlGerenciada){
-			if ( ((UrlGerenciada)obj).getChave() != null)
-				return ((UrlGerenciada)obj).getChave().equals(this.chave);
+			UrlGerenciada urlGerenciada = (UrlGerenciada)obj;
+			if ( urlGerenciada != null && urlGerenciada.getChave() != null)
+				return urlGerenciada.getChave().equals(this.chave);
 		}
 		return super.equals(obj);
 	}
