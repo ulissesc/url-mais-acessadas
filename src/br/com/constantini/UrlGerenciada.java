@@ -25,7 +25,7 @@ public class UrlGerenciada implements Comparable<UrlGerenciada> {
 	public void resetaAcessos(){
 		acessos = 0;
 	}
-	
+	 
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof UrlGerenciada){
