@@ -10,8 +10,13 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
+
+
 public class MaisAcessadosFilter implements Filter{
 
+	private Logger logger = Logger.getLogger(MaisAcessadosFilter.class);
+	
 	@Override
 	public void destroy() {}
 
@@ -23,8 +28,7 @@ public class MaisAcessadosFilter implements Filter{
 			HttpServletRequest httpServletRequest = (HttpServletRequest)request;
 			MaisAcessados.getCurrentContext(httpServletRequest).contarURI(httpServletRequest.getRequestURI());
 		}catch (Exception e) {
-			System.out.println("[Falha ao processas 'Mais Acessados']");
-			e.printStackTrace();
+			logger.error("[Falha ao processas 'Mais Acessados']", e);
 		}
 		chain.doFilter(request, response);
 	}

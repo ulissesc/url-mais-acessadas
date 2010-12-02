@@ -10,11 +10,16 @@ import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
+
 public class MaisAcessados {
 
 	private final List<UrlGerenciada> urlGerenciadaList = new ArrayList<UrlGerenciada>();
 	private static final String MAIS_ACESSADOS = "_MAIS_ACESSADOS_";
 	private static final Properties properties = new Properties();
+	
+	//log
+	private Logger logger = Logger.getLogger(MaisAcessados.class);
 	
 	private HttpServletRequest request;
 	
@@ -41,7 +46,7 @@ public class MaisAcessados {
 	protected void contarURI(String requestURI){
 		
 		String requestURILimpa = limpaURLdoRequest( requestURI );
-		System.out.println("URL ACESSADA:       " + requestURILimpa);
+		logger.info("URL ACESSADA:       " + requestURILimpa);
 
 		UrlGerenciada indicadorUri = buscaNivel1( requestURILimpa );
 		
@@ -112,7 +117,7 @@ public class MaisAcessados {
 			String uriReal = uri.getPath().substring(path.length());
 			return uriReal;
 		} catch (URISyntaxException e) {
-			e.printStackTrace();
+			logger.error("ERRO AO RECUPERAR URI", e);
 		}
 		return null;
 	}
@@ -129,7 +134,7 @@ public class MaisAcessados {
 		
 		for(UrlGerenciada indicadorUri : urlGerenciadaList){
 			if (indicadorUri.getChave().equals(uri)){
-				System.out.println("BUSCA 1 - VALOR: "+ uri);
+				logger.debug("BUSCA 1 - VALOR: "+ uri);
 				indicadorUriEncontrado = indicadorUri;
 				break;
 			}
@@ -158,7 +163,7 @@ public class MaisAcessados {
 		
 		for(UrlGerenciada indicadorUri : urlGerenciadaList){
 			if (indicadorUri.getChave().toLowerCase().contains( requestName.toLowerCase() )){
-				System.out.println("BUSCA 2 - VALOR: "+ requestName.toLowerCase());
+				logger.debug("BUSCA 2 - VALOR: "+ requestName.toLowerCase());
 				indicadorUriEncontrado = indicadorUri;
 				break;
 			}
